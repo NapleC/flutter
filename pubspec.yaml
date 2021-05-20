@@ -1,0 +1,122 @@
+name: flutter_jd
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  # 轮播图
+  flutter_swiper: ^1.1.6
+  # 设备信息
+  device_info: ^0.4.2+4
+  # 网络请求
+  dio: ^3.0.9
+  # 提示
+  bot_toast: ^3.0.0
+  shared_preferences: ^0.5.7+3
+  connectivity: ^0.4.2
+  # 下拉刷新
+  pull_to_refresh: ^2.0.0
+  # 侧滑菜单
+  flutter_slidable: ^0.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  fonts:
+    - family: Iconfont
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
+
+  assets:
+    - assets/images/my_bg.png
+    - assets/images/ms.png
+    - assets/images/avatar.png
+
+    - assets/images/refresh.gif
+
+    - assets/images/banner/banner_jd_1.jpg
+    - assets/images/banner/banner_jd_2.jpg
+    - assets/images/banner/banner_jd_3.jpg
+    - assets/images/banner/banner_jd_4.jpg
+    - assets/images/banner/banner_jd_5.jpg
+    - assets/images/banner/banner_jd_6.jpg
+    - assets/images/banner/banner_jd_7.jpg
+    - assets/images/banner/banner_jd_8.jpg
+
+    - assets/images/icon/icon_a_1.png
+    - assets/images/icon/icon_a_2.png
+    - assets/images/icon/icon_a_3.png
+    - assets/images/icon/icon_a_4.png
+    - assets/images/icon/icon_a_5.png
+    - assets/images/icon/icon_a_6.png
+    - assets/images/icon/icon_a_7.png
+    - assets/images/icon/icon_a_8.png
+    - assets/images/icon/icon_a_9.png
+    - assets/images/icon/icon_a_10.png
+
+    - assets/images/icon/icon_b_1.png
+    - assets/images/icon/icon_b_2.png
+    - assets/images/icon/icon_b_3.png
+    - assets/images/icon/icon_b_4.png
+    - assets/images/icon/icon_b_5.png
+    - assets/images/icon/icon_b_6.png
+    - assets/images/icon/icon_b_7.png
+    - assets/images/icon/icon_b_8.png
+    - assets/images/icon/icon_b_9.png
+    - assets/images/icon/icon_b_10.png
+
+    - assets/images/product/product_1.jpg
+    - assets/images/product/product_2.jpg
+    - assets/images/product/product_3.jpg
+    - assets/images/product/product_4.jpg
+    - assets/images/product/product_5.jpg
+    - assets/images/product/product_6.jpg
+    - assets/images/product/product_7.jpg
+    - assets/images/product/product_8.jpg
+
+    - assets/images/tools/tool_1.png
+    - assets/images/tools/tool_2.png
+    - assets/images/tools/tool_3.png
+    - assets/images/tools/tool_4.png
+    - assets/images/tools/tool_5.png
+    - assets/images/tools/tool_6.png
+    - assets/images/tools/tool_7.png
+    - assets/images/tools/tool_8.png
+    - assets/images/tools/tool_9.png
+    - assets/images/tools/tool_10.png
