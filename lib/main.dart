@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.light,
       ),
-      initialRoute: '/',
+      initialRoute: '/layd',
       onGenerateRoute: onGenerateRoute,
       home: TabNavigator(),
     );

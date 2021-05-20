@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_jd/pages/ad/index.dart';
 import 'package:flutter_jd/pages/goods/goods_detail.dart';
 import 'package:flutter_jd/pages/login/index.dart';
 import 'package:flutter_jd/pages/search/index.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_jd/pages/toolbar/my.dart';
 import 'package:flutter_jd/pages/setting/index.dart';
 
 final routes = {
+  '/layd': (context) => Ad(),
   '/': (context) => Home(),
   '/category': (context) => Category(),
   '/find': (context) => Find(),

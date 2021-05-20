@@ -16,10 +16,10 @@ class _MyState extends State<Find> {
 
   _productList() {
     return Container(
-      height: 955,
       margin: EdgeInsets.only(top: 10, left: 10, right: 10),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: GridView(
+        shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 6,
