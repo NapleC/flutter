@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/mock/mock.dart';
 import 'package:flutter_jd/utils/utils.dart';
-import 'package:flutter_jd/widgets/layout/TopBar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class Home extends StatefulWidget {
@@ -23,13 +22,25 @@ class _HomeState extends State<Home> {
   int appListCurInd = 0;
   // 商品列表
   List goodsList = PRODUCT_LIST;
+  // 距离顶部的高度
+  double offsetTop = 0;
+  // 顶部背景高度
+  double topBackgroundHeight = 120;
 
   // 搜索栏
   Widget _buildSearch() {
     return Container(
-      height: 40,
-      padding: EdgeInsets.only(left: 12, right: 12, bottom: 5),
-      color: Color(0xFFFC3A26),
+      padding: EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top, left: 12, right: 12, bottom: 5),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFFB2E1B),
+            Color(0xFFFF5640),
+          ],
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -98,62 +109,48 @@ class _HomeState extends State<Home> {
 
   // 轮播图
   Widget _buildBanner() {
-    return Stack(
-      children: [
-        Container(
-          child: ClipPath(
-            clipper: BackgroundClipper(),
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      height: 140,
+      child: Swiper(
+        itemCount: bannerList.length,
+        autoplay: true,
+        autoplayDelay: 5000,
+        duration: 800,
+        // viewportFraction: 0.8, // 显示多张图片
+        // scale: 0.85, // 图片左右间距 (打开此属性切换页面会报错)
+        // pagination: new SwiperPagination(),
+        pagination: new SwiperCustomPagination(
+            builder: (BuildContext context, SwiperPluginConfig config) {
+          return Positioned(
+            left: 0,
+            right: 0,
+            bottom: 7,
             child: Container(
-              width: double.infinity,
-              height: 120,
-              color: Color(0xFFFC3A26),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 10),
-          height: 140,
-          child: Swiper(
-            itemCount: bannerList.length,
-            autoplay: true,
-            autoplayDelay: 5000,
-            duration: 800,
-            // viewportFraction: 0.8, // 显示多张图片
-            // scale: 0.85, // 图片左右间距 (打开此属性切换页面会报错)
-            // pagination: new SwiperPagination(),
-            pagination: new SwiperCustomPagination(
-                builder: (BuildContext context, SwiperPluginConfig config) {
-              return Positioned(
-                left: 0,
-                right: 0,
-                bottom: 7,
-                child: Container(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _bannerPagetion(config.itemCount, config.activeIndex)
-                  ],
-                )),
-              );
-            }),
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: EdgeInsets.only(left: 12, right: 12),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    color: Color(0xffeeeeee),
-                    child: Image.asset(
-                      bannerList[index],
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _bannerPagetion(config.itemCount, config.activeIndex)
+              ],
+            )),
+          );
+        }),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            margin: EdgeInsets.only(left: 12, right: 12),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Color(0xffeeeeee),
+                child: Image.asset(
+                  bannerList[index],
+                  fit: BoxFit.fill,
                 ),
-              );
-            },
+              ),
+            ),
+          );
+        },
           ),
-        ),
-      ],
     );
   }
 
@@ -192,6 +189,7 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 Container(
                   child: GridView(
+                    padding: EdgeInsets.all(0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 5,
                       crossAxisSpacing: 18,
@@ -204,6 +202,7 @@ class _HomeState extends State<Home> {
                 ),
                 Container(
                   child: GridView(
+                    padding: EdgeInsets.all(0),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 5,
                       crossAxisSpacing: 18,
@@ -322,6 +321,7 @@ class _HomeState extends State<Home> {
             height: 195,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: GridView.count(
+              padding: EdgeInsets.all(0),
               crossAxisCount: 4,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
@@ -382,6 +382,7 @@ class _HomeState extends State<Home> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: GridView(
+        padding: EdgeInsets.all(0),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -464,37 +465,78 @@ class _HomeState extends State<Home> {
     );
   }
 
+  _onScroll(offset) {
+    setState(() {
+      offsetTop = offset;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TopBar(
-        height: 0,
-        brightness: Brightness.dark,
-        backgroundColor: Color(0xFFFC3A26),
-      ),
-      body: Column(
-        children: [
-          _buildSearch(),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                color: Color(0xFFF2F2F2),
-                child: Column(
-                  children: [
-                    _buildBanner(),
-                    _scrollXIcon(),
-                    _buildSeckill(),
-                    _buildGoodsList()
-                  ],
+    Size screenSize = MediaQuery.of(context).size;
+    double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
+    double screenHeight = screenSize.height; 
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light, 
+        child: Scaffold(
+        backgroundColor: Color(0xFFF2F2F2),
+        body: Column(
+          children: [
+            _buildSearch(),
+            Stack(
+              children: [
+                Container(
+                  child: ClipPath(
+                    clipper: BackgroundClipper(),
+                    child: Container(
+                      width: double.infinity,
+                      height: offsetTop <= topBackgroundHeight ? (topBackgroundHeight - offsetTop) : 0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFFFB2E1B),
+                            Color(0xFFFF5640),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Container(
+                  height: screenHeight - statusBarHeight - topBackgroundHeight - 1,
+                  child: NotificationListener(
+                    // ignore: missing_return
+                    onNotification: (scrollNotification) {
+                      if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
+                        _onScroll(scrollNotification.metrics.pixels);
+                      }
+                    },
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            _buildBanner(),
+                            _scrollXIcon(),
+                            _buildSeckill(),
+                            _buildGoodsList()
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 }
+
 
 // 顶部背景圆弧
 class BackgroundClipper extends CustomClipper<Path> {

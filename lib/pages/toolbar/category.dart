@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/mock/mock.dart';
 import 'package:flutter_jd/utils/utils.dart';
@@ -113,43 +115,51 @@ class _MyState extends State<Category> {
     return Expanded(
       child: Container(
         color: Colors.white,
-        child: ListView(
-          children: List.generate(
-            productList.length,
-            (index) => Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 10,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 5, bottom: 8),
-                    child: Text(
-                      productList[index]['title'],
-                      style: TextStyle(fontWeight: FontWeight.w500),
+        child: NotificationListener(
+          // ignore: missing_return
+          onNotification: (scrollNotification) {
+            if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
+              
+            }
+          },
+          child: ListView(
+            children: List.generate(
+              productList.length,
+              (index) => Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 5, bottom: 8),
+                      child: Text(
+                        productList[index]['title'],
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                     ),
-                  ),
-                  GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1 / 1.4,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: List.generate(
-                      productList[index]['children'].length,
-                      (cIndex) => Container(
-                        child: _buildProductListItem(
-                          index,
-                          cIndex,
+                    GridView.count(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1 / 1.4,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: List.generate(
+                        productList[index]['children'].length,
+                        (cIndex) => Container(
+                          child: _buildProductListItem(
+                            index,
+                            cIndex,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
