@@ -511,8 +511,7 @@ class _TabNavigatorState extends State<My> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, "/setting");
+                                              Navigator.pushNamed(context, "/setting");
                                             },
                                             child: Container(
                                               margin:

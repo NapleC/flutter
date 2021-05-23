@@ -12,6 +12,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // 导航索引
+  int navIndex = 0;
   // 轮播图数据
   List bannerList = BANNER_LIST;
   // 应用列表1
@@ -25,7 +27,7 @@ class _HomeState extends State<Home> {
   // 距离顶部的高度
   double offsetTop = 0;
   // 顶部背景高度
-  double topBackgroundHeight = 120;
+  double topBackgroundHeight = 140;
 
   // 搜索栏
   Widget _buildSearch() {
@@ -107,10 +109,101 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // 导航栏
+  Widget _buildSlideNav() {
+    List list = ['首页', '电脑办公', '手机', '深圳', '生鲜', '数码', '家电', '护肤', '运动', '男装'];
+    return Container(
+      height: 30,
+      margin: EdgeInsets.only(top: 5),
+      padding: EdgeInsets.only(left: 1),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: List.generate(list.length, (index) => 
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      navIndex = index;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        Text(list[index], style: TextStyle(
+                          color: Colors.white,
+                          fontSize: navIndex == index ? 18 : 16,
+                          fontWeight: navIndex == index ? FontWeight.bold : FontWeight.w400
+                        )),
+                        Container(
+                          width: 16,
+                          height: 2.8,
+                          decoration: BoxDecoration(
+                            color: navIndex == index ? Colors.white : Colors.transparent,
+                            borderRadius: BorderRadius.circular(3)
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: 21,
+            padding: EdgeInsets.only(right: 12),
+            child: Row(
+              children: [
+                Container(
+                  width: 3,
+                  height: 16,
+                  margin: EdgeInsets.only(top: 2, right: 5),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        Colors.black.withOpacity(0.02),
+                        Colors.black.withOpacity(0.1)
+                      ],
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/category", arguments: {
+                      'back': true
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 3),
+                        child: Utils.iconFont(0xe607, Colors.white, 16.6),
+                      ),
+                      Text('分类', style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16
+                      ),)
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      )
+    );
+  }
+
   // 轮播图
   Widget _buildBanner() {
     return Container(
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(top: 3),
       height: 140,
       child: Swiper(
         itemCount: bannerList.length,
@@ -506,7 +599,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Container(
-                  height: screenHeight - statusBarHeight - topBackgroundHeight - 1,
+                  height: screenHeight - statusBarHeight - 120 - 1,
                   child: NotificationListener(
                     // ignore: missing_return
                     onNotification: (scrollNotification) {
@@ -518,6 +611,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Column(
                           children: [
+                            _buildSlideNav(),
                             _buildBanner(),
                             _scrollXIcon(),
                             _buildSeckill(),

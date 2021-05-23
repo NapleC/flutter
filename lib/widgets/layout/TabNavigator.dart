@@ -38,7 +38,7 @@ class _TabNavigatorState extends State<TabNavigator> {
         body: PageView(
           controller: _controller,
           onPageChanged: _pageChange,
-          children: <Widget>[Home(), Category(), Find(), Cart(), My()],
+          children: <Widget>[Home(), Category(arguments: {'back': false},), Find(), Cart(), My()],
           physics: NeverScrollableScrollPhysics(), // 禁止tab左右滑动
         ),
         bottomNavigationBar: BottomNavigationBar(

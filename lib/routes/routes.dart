@@ -13,7 +13,7 @@ import 'package:flutter_jd/pages/setting/index.dart';
 final routes = {
   '/layd': (context) => Ad(),
   '/': (context) => Home(),
-  '/category': (context) => Category(),
+  '/category': (context, {arguments}) => Category(arguments: arguments),
   '/find': (context) => Find(),
   '/cart': (context) => Cart(),
   '/my': (context) => My(),

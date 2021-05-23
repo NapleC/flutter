@@ -1,11 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/mock/mock.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
 
 class Category extends StatefulWidget {
+  final Map arguments;
+  Category({Key key, this.arguments}) : super(key: key);
+
   @override
   _MyState createState() => _MyState();
 }
@@ -16,21 +17,43 @@ class _MyState extends State<Category> {
 
   List productList = MENU_PRODUCT_LIST;
 
+  // 构建头部按钮
+  _buildHeadLeftBtn() {
+    
+    if(widget.arguments['back']) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.transparent,
+          child: Utils.iconFont(0xe671, Color(0xFF333333), 18),
+        ),
+      );
+      
+    }else {
+      return Utils.iconFont(0xe8b6, Color(0xFF999999), 19);
+    }
+  }
+
   _buildSearchBar() {
     return Container(
       height: 40,
-      padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
+      padding: EdgeInsets.only(right: 10, bottom: 5),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            child: Utils.iconFont(0xe8b6, Color(0xFF999999), 19),
+            width: 35,
+            child: _buildHeadLeftBtn(),
           ),
           Expanded(
             child: Container(
               height: 32,
-              margin: EdgeInsets.only(left: 10, right: 10),
+              margin: EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 color: Color(0xFFF6F6F6),
                 borderRadius: BorderRadius.circular(20),
