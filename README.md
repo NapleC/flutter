@@ -7,7 +7,9 @@ Flutter 仿京东
 <td>
 <img src="https://www.qiniu.lingchen.kim/WechatIMG79.jpeg" width="300"/></td>
 <td>
-<img src="https://www.qiniu.lingchen.kim/WechatIMG80.jpeg" width="300"/></td>
+<td>
+<img src="https://www.qiniu.lingchen.kim/WechatIMG79.jpeg" width="300"/></td>
+<td>
 </tr>
 <tr>
 <td>
@@ -15,11 +17,7 @@ Flutter 仿京东
 <td>
 <img src="https://www.qiniu.lingchen.kim/WechatIMG82.jpeg" width="300"/></td>
 </tr>
-<tr>
-<td>
-<img src="https://www.qiniu.lingchen.kim/WechatIMG83.jpeg"/></td>
-<td>
-</tr>
+
 </table>
 
 ### 视频演示
