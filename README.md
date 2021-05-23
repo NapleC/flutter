@@ -2,22 +2,20 @@
 Flutter 仿京东
 
 ### 运行效果图
+- IOS：
 <table>
 <tr>
 <td>
 <img src="https://www.qiniu.lingchen.kim/WechatIMG79.jpeg" width="300"/></td>
 <td>
-<td>
-<img src="https://www.qiniu.lingchen.kim/WechatIMG79.jpeg" width="300"/></td>
-<td>
+<img src="https://www.qiniu.lingchen.kim/WechatIMG80.jpeg" width="300"/></td>
 </tr>
 <tr>
 <td>
 <img src="https://www.qiniu.lingchen.kim/WechatIMG81.jpeg" width="300"/></td>
 <td>
-<img src="https://www.qiniu.lingchen.kim/WechatIMG82.jpeg" width="300"/></td>
+<img src="https://www.qiniu.lingchen.kim/WechatIMG83.jpeg" width="300"/></td>
 </tr>
-
 </table>
 
 ### 视频演示
