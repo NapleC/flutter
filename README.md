@@ -19,6 +19,9 @@ Flutter 仿京东
 </table>
 
 ### 视频演示
+<video src="https://www.qiniu.lingchen.kim/1621780295401913.mp4" controls="controls">
+your browser does not support the video tag
+</video>
 - [演示地址](https://www.qiniu.lingchen.kim/1621780295401913.mp4)
 
 ### 其他
