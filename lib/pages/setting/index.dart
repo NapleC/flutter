@@ -146,6 +146,7 @@ class _MyState extends State<SettingPage> {
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
+                          Navigator.pushNamed(context, '/login');
                         },
                         child: Container(
                           width: 90,
