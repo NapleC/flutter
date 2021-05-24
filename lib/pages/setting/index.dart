@@ -4,6 +4,7 @@ import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/common/ShowAniationDialog.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
 
+// 设置
 class SettingPage extends StatefulWidget {
   @override
   _MyState createState() => _MyState();

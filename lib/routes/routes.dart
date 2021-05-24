@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jd/pages/ad/index.dart';
 import 'package:flutter_jd/pages/goods/goods_detail.dart';
+import 'package:flutter_jd/pages/launch/index.dart';
 import 'package:flutter_jd/pages/login/index.dart';
 import 'package:flutter_jd/pages/search/index.dart';
 import 'package:flutter_jd/pages/toolbar/cart.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_jd/pages/toolbar/my.dart';
 import 'package:flutter_jd/pages/setting/index.dart';
 
 final routes = {
-  '/layd': (context) => Ad(),
+  '/launch_page': (context) => LaunchPage(),
   '/': (context) => Home(),
   '/category': (context, {arguments}) => Category(arguments: arguments),
   '/find': (context) => Find(),
@@ -32,13 +32,17 @@ var onGenerateRoute = (RouteSettings settings) {
     if (settings.arguments != null) {
       //页面跳转前有传参
       final Route route = MaterialPageRoute(
-          builder: (context) =>
-              pageContentBuilder(context, arguments: settings.arguments));
+        builder: (context) => pageContentBuilder(
+          context,
+          arguments: settings.arguments,
+        ),
+      );
       return route;
     } else {
       //页面跳转前没有传参
-      final Route route =
-          MaterialPageRoute(builder: (context) => pageContentBuilder(context));
+      final Route route = MaterialPageRoute(
+        builder: (context) => pageContentBuilder(context),
+      );
       return route;
     }
   }

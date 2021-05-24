@@ -3,6 +3,7 @@ import 'package:flutter_jd/mock/mock.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
 
+// 分类
 class Category extends StatefulWidget {
   final Map arguments;
   Category({Key key, this.arguments}) : super(key: key);
@@ -19,8 +20,7 @@ class _MyState extends State<Category> {
 
   // 构建头部按钮
   _buildHeadLeftBtn() {
-    
-    if(widget.arguments['back']) {
+    if (widget.arguments['back']) {
       return GestureDetector(
         onTap: () {
           Navigator.pop(context);
@@ -32,8 +32,7 @@ class _MyState extends State<Category> {
           child: Utils.iconFont(0xe671, Color(0xFF333333), 18),
         ),
       );
-      
-    }else {
+    } else {
       return Utils.iconFont(0xe8b6, Color(0xFF999999), 19);
     }
   }
@@ -141,9 +140,8 @@ class _MyState extends State<Category> {
         child: NotificationListener(
           // ignore: missing_return
           onNotification: (scrollNotification) {
-            if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
-              
-            }
+            if (scrollNotification is ScrollUpdateNotification &&
+                scrollNotification.depth == 0) {}
           },
           child: ListView(
             children: List.generate(

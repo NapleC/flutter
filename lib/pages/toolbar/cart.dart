@@ -6,6 +6,7 @@ import 'package:flutter_jd/widgets/layout/TopBar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+// 购物车
 class Cart extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MyState();

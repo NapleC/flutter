@@ -6,6 +6,7 @@ import 'package:flutter_jd/mock/mock.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+// 首页
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -32,7 +33,11 @@ class _HomeState extends State<Home> {
   // 搜索栏
   Widget _buildSearch() {
     return Container(
-      padding: EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top, left: 12, right: 12, bottom: 5),
+      padding: EdgeInsets.only(
+          top: MediaQueryData.fromWindow(window).padding.top,
+          left: 12,
+          right: 12,
+          bottom: 5),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -113,91 +118,93 @@ class _HomeState extends State<Home> {
   Widget _buildSlideNav() {
     List list = ['首页', '电脑办公', '手机', '深圳', '生鲜', '数码', '家电', '护肤', '运动', '男装'];
     return Container(
-      height: 30,
-      margin: EdgeInsets.only(top: 5),
-      padding: EdgeInsets.only(left: 1),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: List.generate(list.length, (index) => 
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      navIndex = index;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        Text(list[index], style: TextStyle(
-                          color: Colors.white,
-                          fontSize: navIndex == index ? 18 : 16,
-                          fontWeight: navIndex == index ? FontWeight.bold : FontWeight.w400
-                        )),
-                        Container(
-                          width: 16,
-                          height: 2.8,
-                          decoration: BoxDecoration(
-                            color: navIndex == index ? Colors.white : Colors.transparent,
-                            borderRadius: BorderRadius.circular(3)
-                          ),
-                        )
-                      ],
+        height: 30,
+        margin: EdgeInsets.only(top: 5),
+        padding: EdgeInsets.only(left: 1),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: List.generate(
+                  list.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        navIndex = index;
+                      });
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          Text(list[index],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: navIndex == index ? 18 : 16,
+                                  fontWeight: navIndex == index
+                                      ? FontWeight.bold
+                                      : FontWeight.w400)),
+                          Container(
+                            width: 16,
+                            height: 2.8,
+                            decoration: BoxDecoration(
+                                color: navIndex == index
+                                    ? Colors.white
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(3)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            height: 21,
-            padding: EdgeInsets.only(right: 12),
-            child: Row(
-              children: [
-                Container(
-                  width: 3,
-                  height: 16,
-                  margin: EdgeInsets.only(top: 2, right: 5),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.topRight,
-                      colors: [
-                        Colors.black.withOpacity(0.02),
-                        Colors.black.withOpacity(0.1)
+            Container(
+              height: 21,
+              padding: EdgeInsets.only(right: 12),
+              child: Row(
+                children: [
+                  Container(
+                    width: 3,
+                    height: 16,
+                    margin: EdgeInsets.only(top: 2, right: 5),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          Colors.black.withOpacity(0.02),
+                          Colors.black.withOpacity(0.1)
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/category",
+                          arguments: {'back': true});
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: 3),
+                          child: Utils.iconFont(0xe607, Colors.white, 16.6),
+                        ),
+                        Text(
+                          '分类',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        )
                       ],
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, "/category", arguments: {
-                      'back': true
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 3),
-                        child: Utils.iconFont(0xe607, Colors.white, 16.6),
-                      ),
-                      Text('分类', style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16
-                      ),)
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      )
-    );
+                ],
+              ),
+            )
+          ],
+        ));
   }
 
   // 轮播图
@@ -243,7 +250,7 @@ class _HomeState extends State<Home> {
             ),
           );
         },
-          ),
+      ),
     );
   }
 
@@ -396,7 +403,10 @@ class _HomeState extends State<Home> {
                 ),
                 Container(
                   width: 22,
-                  child: Image.asset('assets/images/ms.png', fit: BoxFit.cover),
+                  child: Image.asset(
+                    'assets/images/home/ms.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Row(
                   children: [
@@ -568,69 +578,70 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
-    double screenHeight = screenSize.height; 
+    double screenHeight = screenSize.height;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light, 
+        value: SystemUiOverlayStyle.light,
         child: Scaffold(
-        backgroundColor: Color(0xFFF2F2F2),
-        body: Column(
-          children: [
-            _buildSearch(),
-            Stack(
-              children: [
-                Container(
-                  child: ClipPath(
-                    clipper: BackgroundClipper(),
-                    child: Container(
-                      width: double.infinity,
-                      height: offsetTop <= topBackgroundHeight ? (topBackgroundHeight - offsetTop) : 0,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFFB2E1B),
-                            Color(0xFFFF5640),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: screenHeight - statusBarHeight - 120 - 1,
-                  child: NotificationListener(
-                    // ignore: missing_return
-                    onNotification: (scrollNotification) {
-                      if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
-                        _onScroll(scrollNotification.metrics.pixels);
-                      }
-                    },
-                    child: SingleChildScrollView(
+          backgroundColor: Color(0xFFF2F2F2),
+          body: Column(
+            children: [
+              _buildSearch(),
+              Stack(
+                children: [
+                  Container(
+                    child: ClipPath(
+                      clipper: BackgroundClipper(),
                       child: Container(
-                        child: Column(
-                          children: [
-                            _buildSlideNav(),
-                            _buildBanner(),
-                            _scrollXIcon(),
-                            _buildSeckill(),
-                            _buildGoodsList()
-                          ],
+                        width: double.infinity,
+                        height: offsetTop <= topBackgroundHeight
+                            ? (topBackgroundHeight - offsetTop)
+                            : 0,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xFFFB2E1B),
+                              Color(0xFFFF5640),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      )
-    );
+                  Container(
+                    height: screenHeight - statusBarHeight - 120 - 1,
+                    child: NotificationListener(
+                      // ignore: missing_return
+                      onNotification: (scrollNotification) {
+                        if (scrollNotification is ScrollUpdateNotification &&
+                            scrollNotification.depth == 0) {
+                          _onScroll(scrollNotification.metrics.pixels);
+                        }
+                      },
+                      child: SingleChildScrollView(
+                        child: Container(
+                          child: Column(
+                            children: [
+                              _buildSlideNav(),
+                              _buildBanner(),
+                              _scrollXIcon(),
+                              _buildSeckill(),
+                              _buildGoodsList()
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }
-
 
 // 顶部背景圆弧
 class BackgroundClipper extends CustomClipper<Path> {

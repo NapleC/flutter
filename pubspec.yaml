@@ -24,9 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   # 轮播图
   flutter_swiper: ^1.1.6
@@ -47,28 +44,22 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   fonts:
     - family: Iconfont
       fonts:
-        - asset: assets/fonts/iconfont.ttf
+        - asset: assets/iconfont/iconfont.ttf
 
   assets:
-    - assets/images/my_bg.png
-    - assets/images/ms.png
-    - assets/images/avatar.png
+    - assets/images/launch/ad.jpg
+    - assets/images/my/my_bg.png
+    - assets/images/home/ms.png
+    - assets/images/common/avatar.png
 
-    - assets/images/refresh.gif
+    - assets/images/common/refresh.gif
 
     - assets/images/banner/banner_jd_1.jpg
     - assets/images/banner/banner_jd_2.jpg
@@ -120,5 +111,3 @@ flutter:
     - assets/images/tools/tool_8.png
     - assets/images/tools/tool_9.png
     - assets/images/tools/tool_10.png
-
-    - assets/images/ad.jpg
