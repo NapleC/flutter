@@ -52,7 +52,7 @@ class _MyState extends State<Login> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(75),
-                          child: Image.asset('assets/images/avatar.png', fit: BoxFit.cover,),
+                          child: Image.asset('assets/images/common/avatar.png', fit: BoxFit.cover,),
                         ),
                       ),
                     ),
