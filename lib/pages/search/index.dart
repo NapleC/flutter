@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
 
+// 搜索
 class SearchPage extends StatefulWidget {
   @override
   _MyState createState() => _MyState();

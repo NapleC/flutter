@@ -74,7 +74,7 @@ class MyState extends State<PullRefresh> {
           height: 150,
           outerBuilder: (child) => Column(
             children: <Widget>[
-              Image.asset('assets/images/refresh.gif'),
+              Image.asset('assets/images/common/refresh.gif'),
               Container(
                 margin: EdgeInsets.only(bottom: widget.headBottom),
                 child: Padding(

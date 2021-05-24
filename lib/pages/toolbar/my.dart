@@ -5,15 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_jd/mock/mock.dart';
 import 'package:flutter_jd/utils/utils.dart';
 
-//滚动最大距离
-const APPBAR_SCROLL_OFFSET = 100;
-
+// 我的
 class My extends StatefulWidget {
   @override
   _TabNavigatorState createState() => _TabNavigatorState();
 }
 
 class _TabNavigatorState extends State<My> {
+  //滚动最大距离
+  double appBarScrollOffset = 100;
+  // 透明值
   double appBarAlpha = 0;
   int _currentPageIndex = 0;
   List topList = [
@@ -213,7 +214,7 @@ class _TabNavigatorState extends State<My> {
   }
 
   _onScroll(offset) {
-    double alpha = offset / APPBAR_SCROLL_OFFSET;
+    double alpha = offset / appBarScrollOffset;
 
     if (alpha < 0) {
       alpha = 0;
@@ -449,7 +450,7 @@ class _TabNavigatorState extends State<My> {
                             width: double.infinity,
                             height: 230,
                             child: Image.asset(
-                              'assets/images/my_bg.png',
+                              'assets/images/my/my_bg.png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -486,7 +487,7 @@ class _TabNavigatorState extends State<My> {
                                             borderRadius:
                                                 BorderRadius.circular(50),
                                             child: Image.asset(
-                                              'assets/images/avatar.png',
+                                              'assets/images/common/avatar.png',
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -511,7 +512,8 @@ class _TabNavigatorState extends State<My> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.pushNamed(context, "/setting");
+                                              Navigator.pushNamed(
+                                                  context, "/setting");
                                             },
                                             child: Container(
                                               margin:

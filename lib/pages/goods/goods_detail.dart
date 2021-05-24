@@ -1,12 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/utils/utils.dart';
 
-//滚动最大距离
-const APPBAR_SCROLL_OFFSET = 150;
-
+// 商品详情
 class GoodsDetail extends StatefulWidget {
   final Map arguments;
   GoodsDetail({Key key, this.arguments}) : super(key: key);
@@ -16,10 +13,13 @@ class GoodsDetail extends StatefulWidget {
 }
 
 class _TabNavigatorState extends State<GoodsDetail> {
+  // 滚动最大距离
+  double appbarScrollOffset = 150;
+  // 透明值
   double appBarAlpha = 0;
 
   _onScroll(offset) {
-    double alpha = offset / APPBAR_SCROLL_OFFSET;
+    double alpha = offset / appbarScrollOffset;
     if (alpha < 0) {
       alpha = 0;
     } else if (alpha > 1) {
