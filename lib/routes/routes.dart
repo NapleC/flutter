@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_jd/pages/agreement/privacy.dart';
 import 'package:flutter_jd/pages/goods/goods_detail.dart';
 import 'package:flutter_jd/pages/launch/index.dart';
 import 'package:flutter_jd/pages/login/index.dart';
+import 'package:flutter_jd/pages/order/index.dart';
 import 'package:flutter_jd/pages/search/index.dart';
-import 'package:flutter_jd/pages/toolbar/cart.dart';
-import 'package:flutter_jd/pages/toolbar/category.dart';
-import 'package:flutter_jd/pages/toolbar/find.dart';
-import 'package:flutter_jd/pages/toolbar/home.dart';
-import 'package:flutter_jd/pages/toolbar/my.dart';
+import 'package:flutter_jd/pages/tabbar/cart.dart';
+import 'package:flutter_jd/pages/tabbar/category.dart';
+import 'package:flutter_jd/pages/tabbar/find.dart';
+import 'package:flutter_jd/pages/tabbar/home.dart';
+import 'package:flutter_jd/pages/tabbar/my.dart';
 import 'package:flutter_jd/pages/setting/index.dart';
 
 final routes = {
@@ -21,6 +23,8 @@ final routes = {
   '/setting': (context) => SettingPage(),
   '/search': (context) => SearchPage(),
   '/goods_detail': (context, {arguments}) => GoodsDetail(arguments: arguments),
+  '/order': (context) => Order(),
+  '/privacy': (context) => Privacy(),
 };
 
 //统一处理命名路由

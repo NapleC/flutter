@@ -581,65 +581,66 @@ class _HomeState extends State<Home> {
     double screenHeight = screenSize.height;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Scaffold(
-          backgroundColor: Color(0xFFF2F2F2),
-          body: Column(
-            children: [
-              _buildSearch(),
-              Stack(
-                children: [
-                  Container(
-                    child: ClipPath(
-                      clipper: BackgroundClipper(),
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        backgroundColor: Color(0xFFF2F2F2),
+        body: Column(
+          children: [
+            _buildSearch(),
+            Stack(
+              children: [
+                Container(
+                  child: ClipPath(
+                    clipper: BackgroundClipper(),
+                    child: Container(
+                      width: double.infinity,
+                      height: offsetTop <= topBackgroundHeight
+                          ? (topBackgroundHeight - offsetTop)
+                          : 0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFFFB2E1B),
+                            Color(0xFFFF5640),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: screenHeight - statusBarHeight - 120 - 1,
+                  child: NotificationListener(
+                    // ignore: missing_return
+                    onNotification: (scrollNotification) {
+                      if (scrollNotification is ScrollUpdateNotification &&
+                          scrollNotification.depth == 0) {
+                        _onScroll(scrollNotification.metrics.pixels);
+                      }
+                    },
+                    child: SingleChildScrollView(
                       child: Container(
-                        width: double.infinity,
-                        height: offsetTop <= topBackgroundHeight
-                            ? (topBackgroundHeight - offsetTop)
-                            : 0,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xFFFB2E1B),
-                              Color(0xFFFF5640),
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            _buildSlideNav(),
+                            _buildBanner(),
+                            _scrollXIcon(),
+                            _buildSeckill(),
+                            _buildGoodsList()
+                          ],
                         ),
                       ),
                     ),
                   ),
-                  Container(
-                    height: screenHeight - statusBarHeight - 120 - 1,
-                    child: NotificationListener(
-                      // ignore: missing_return
-                      onNotification: (scrollNotification) {
-                        if (scrollNotification is ScrollUpdateNotification &&
-                            scrollNotification.depth == 0) {
-                          _onScroll(scrollNotification.metrics.pixels);
-                        }
-                      },
-                      child: SingleChildScrollView(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              _buildSlideNav(),
-                              _buildBanner(),
-                              _scrollXIcon(),
-                              _buildSeckill(),
-                              _buildGoodsList()
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ));
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

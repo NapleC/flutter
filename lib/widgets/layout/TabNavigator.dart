@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_jd/pages/toolbar/cart.dart';
-import 'package:flutter_jd/pages/toolbar/category.dart';
-import 'package:flutter_jd/pages/toolbar/find.dart';
-import 'package:flutter_jd/pages/toolbar/home.dart';
-import 'package:flutter_jd/pages/toolbar/my.dart';
+import 'package:flutter_jd/pages/tabbar/cart.dart';
+import 'package:flutter_jd/pages/tabbar/category.dart';
+import 'package:flutter_jd/pages/tabbar/find.dart';
+import 'package:flutter_jd/pages/tabbar/home.dart';
+import 'package:flutter_jd/pages/tabbar/my.dart';
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -38,7 +38,15 @@ class _TabNavigatorState extends State<TabNavigator> {
         body: PageView(
           controller: _controller,
           onPageChanged: _pageChange,
-          children: <Widget>[Home(), Category(arguments: {'back': false},), Find(), Cart(), My()],
+          children: <Widget>[
+            Home(),
+            Category(
+              arguments: {'back': false},
+            ),
+            Find(),
+            Cart(),
+            My()
+          ],
           physics: NeverScrollableScrollPhysics(), // 禁止tab左右滑动
         ),
         bottomNavigationBar: BottomNavigationBar(

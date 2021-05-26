@@ -27,7 +27,6 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: '京东',
       builder: BotToastInit(),
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -35,8 +34,17 @@ class App extends StatelessWidget {
         brightness: Brightness.light,
       ),
       initialRoute: '/launch_page',
-      onGenerateRoute: onGenerateRoute,
       home: TabNavigator(),
+      onGenerateRoute: onGenerateRoute,
+      debugShowCheckedModeBanner: false,
     );
+  }
+
+  // 隐藏键盘
+  void hideKeyboard(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+      FocusManager.instance.primaryFocus.unfocus();
+    }
   }
 }

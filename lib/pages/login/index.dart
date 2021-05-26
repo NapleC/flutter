@@ -8,14 +8,22 @@ class Login extends StatefulWidget {
 }
 
 class _MyState extends State<Login> {
+  // 同意隐私协议
+  bool agree = false;
 
   _buildText(String text) {
-    return Text(text, 
-      style: TextStyle(
-        color: Color(0xFF999999),
-        fontSize: 12
-      ),
+    return Text(
+      text,
+      style: TextStyle(color: Color(0xFF999999), fontSize: 12),
     );
+  }
+
+  login() {
+    if (agree) {
+      Navigator.of(context)..pop()..pop();
+    } else {
+      Utils.showText(text: '请阅读并勾选页面协议');
+    }
   }
 
   @override
@@ -47,108 +55,143 @@ class _MyState extends State<Login> {
                         height: 75,
                         margin: EdgeInsets.only(top: 80),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFEEEEEE), width: 2),
+                          border: Border.all(
+                            color: Color(0xFFEEEEEE),
+                            width: 2,
+                          ),
                           borderRadius: BorderRadius.circular(75),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(75),
-                          child: Image.asset('assets/images/common/avatar.png', fit: BoxFit.cover,),
+                          child: Image.asset(
+                            'assets/images/common/avatar.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 5),
-                      child: Text('181****0190', style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 45,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 50),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFFA2F19),
-                            Color(0xFFFA722E),
-                          ],
+                      child: Text(
+                        '181****0190',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
                         ),
-                        borderRadius: BorderRadius.circular(30),
                       ),
-                      child: Text('本机号码一键登录', style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14
-                      ),),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        login();
+                      },
+                      child: Container(
+                        width: 300,
+                        height: 45,
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(top: 50),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xFFFA2F19),
+                              Color(0xFFFA722E),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Text(
+                          '本机号码一键登录',
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        ),
+                      ),
                     ),
                     Container(
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(top: 12),
-                      child: Text('其他方式登录', style: TextStyle(
-                        color: Color(0xFF666666),
-                        fontSize: 13
-                      ),),
+                      child: Text(
+                        '其他方式登录',
+                        style:
+                            TextStyle(color: Color(0xFF666666), fontSize: 13),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
             Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 2),
-                        padding: EdgeInsets.all(2),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF999999)),
-                          borderRadius: BorderRadius.circular(12)
+                child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          agree = !agree;
+                        });
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.fromLTRB(6, 2, 6, 2),
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: agree ? Colors.red : Colors.transparent,
+                            border: Border.all(
+                              color: agree ? Colors.red : Color(0xFF999999),
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Utils.iconFont(
+                            0xe736,
+                            agree ? Colors.white : Color(0xFF999999),
+                            8,
+                          ),
                         ),
-                        child: Utils.iconFont(0xe736, Color(0xFF999999), 8),
                       ),
-                      Container(
+                    ),
+                    Container(
                         width: 290,
-                        margin: EdgeInsets.only(left: 8),
                         child: Wrap(
                           alignment: WrapAlignment.start,
                           children: [
                             _buildText('使用手机号一键登录即代表您已同意'),
-                            Text('《XX隐私政策》', 
-                              style: TextStyle(
-                                color: Color(0xFF4a90e2),
-                                fontSize: 12
+                            GestureDetector(
+                              onTap: () {
+                                print('123');
+                                Navigator.pushNamed(context, '/privacy');
+                              },
+                              child: Text(
+                                '《XX隐私政策》',
+                                style: TextStyle(
+                                  color: Color(0xFF4a90e2),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                             _buildText('和'),
-                            Text('《XX账号认证服务条款》', 
+                            Text(
+                              '《XX账号认证服务条款》',
                               style: TextStyle(
-                                color: Color(0xFF4a90e2),
-                                fontSize: 12
-                              ),
+                                  color: Color(0xFF4a90e2), fontSize: 12),
                             ),
                             _buildText('并使用本手机号码登录'),
                           ],
-                        )
-                      )
-                    ],
+                        ))
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Text(
+                    'XX账号为您提供本地号码登录服务',
+                    style: TextStyle(color: Color(0xFF999999), fontSize: 12),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Text('XX账号为您提供本地号码登录服务', style: TextStyle(
-                      color: Color(0xFF999999),
-                      fontSize: 12
-                    ),),
-                  )
-                ],
-              )
-            )
+                )
+              ],
+            ))
           ],
         ),
       ),

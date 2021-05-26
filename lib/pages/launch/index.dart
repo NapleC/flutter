@@ -21,8 +21,11 @@ class _MyState extends State<LaunchPage> {
 
   @override
   Widget build(BuildContext context) {
+    //  隐藏状态栏，保留底部按钮栏
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.dark,
+      value: SystemUiOverlayStyle.light,
       child: Scaffold(
         body: Stack(
           alignment: Alignment(1.0, -1.0), // 右上角对齐
@@ -79,6 +82,8 @@ class _MyState extends State<LaunchPage> {
 
   void navigationPage() {
     _timer.cancel();
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (cxt, ani1, ani2) {

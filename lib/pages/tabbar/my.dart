@@ -249,22 +249,32 @@ class _TabNavigatorState extends State<My> {
         children: List.generate(
           orderList.length,
           (index) => Expanded(
-              child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Utils.iconFont(orderList[index]['icon'], Color(0xFF333333), 25),
-                Container(
-                  margin: EdgeInsets.only(top: 8),
-                  child: Text(
-                    orderList[index]['name'],
-                    style: TextStyle(fontSize: 10),
-                  ),
+            child: Container(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/order');
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Utils.iconFont(
+                      orderList[index]['icon'],
+                      Color(0xFF333333),
+                      25,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 8),
+                      child: Text(
+                        orderList[index]['name'],
+                        style: TextStyle(fontSize: 10),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          )),
+          ),
         ),
       ),
     );
