@@ -13,32 +13,45 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // 状态栏高度
+  double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
+  // 动态顶部背景高度
+  double backgroundHeightDynamic = 0;
+  // 底部导航高度
+  double bottomBarHeight = 50;
+  // 主容器滚动距离
+  double offsetTop = 0;
+  // 搜索栏高度
+  double searchBarHeight = 30;
   // 导航索引
   int navIndex = 0;
+  // 应用列表当前索引
+  int appListCurInd = 0;
   // 轮播图数据
   List bannerList = BANNER_LIST;
   // 应用列表1
   List appList1 = TOOLS_LIST1;
   // 应用列表2
   List appList2 = TOOLS_LIST2;
-  // 应用列表当前索引
-  int appListCurInd = 0;
   // 商品列表
   List goodsList = PRODUCT_LIST;
-  // 距离顶部的高度
-  double offsetTop = 0;
-  // 顶部背景高度
-  double topBackgroundHeight = 140;
 
-  // 搜索栏
-  Widget _buildSearch() {
-    return Container(
-      padding: EdgeInsets.only(
-          top: MediaQueryData.fromWindow(window).padding.top,
-          left: 12,
-          right: 12,
-          bottom: 5),
-      decoration: BoxDecoration(
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  init() {
+    setState(() {
+      backgroundHeightDynamic = statusBarHeight + 85;
+    });
+  }
+
+  // 构建背景（可使用默认背景、图片背景）
+  _buildBackground([String type = 'default']) {
+    if(type == 'default') {
+      BoxDecoration defaultBackground = BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -47,70 +60,142 @@ class _HomeState extends State<Home> {
             Color(0xFFFF5640),
           ],
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Container(
-              height: 32,
-              margin: EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Container(
-                padding: EdgeInsets.only(left: 12, right: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Utils.iconFont(0xe692, Color(0xFF999999)),
-                    Expanded(
-                        child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/search');
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        height: double.infinity,
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(left: 5),
-                        child: Text(
-                          '机械键盘',
-                          style:
-                              TextStyle(color: Color(0xFF999999), fontSize: 14),
-                        ),
-                      ),
-                    )),
-                    Utils.iconFont(0xe614, Color(0xFF999999), 16),
-                  ],
+      );
+      
+      return Container(
+        child: Column(
+          children: [
+            Container(
+              height: statusBarHeight + searchBarHeight + 5,
+              decoration: defaultBackground
+            ),
+            Container(
+              child: ClipPath(
+                clipper: BackgroundClipper(),
+                child: Container(
+                  width: double.infinity,
+                  height: offsetTop <= backgroundHeightDynamic ? (backgroundHeightDynamic - offsetTop): 0,
+                  decoration: defaultBackground
                 ),
               ),
             ),
+          ],
+        ),
+      );
+    }else if(type == 'image') {
+      BoxDecoration imageBackground = BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.topRight,
+          colors: [
+            Color(0xFFFE225D),
+            Color(0xFFF62C1E),
+          ],
+        ),
+      );
+      
+      return Container(
+        child: Column(
+          children: [
+            Container(
+              height: statusBarHeight + searchBarHeight + 5,
+              decoration: imageBackground
+            ),
+            Container(
+              child: ClipPath(
+                clipper: BackgroundClipper(),
+                child: Container(
+                  width: double.infinity,
+                  height: offsetTop <= backgroundHeightDynamic ? (backgroundHeightDynamic - offsetTop): 0,
+                  child: Image.asset('assets/images/my/my_bg.png', fit: BoxFit.cover,),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  // 搜索栏
+  Widget _buildSearchBar() {
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            height: statusBarHeight,
           ),
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  print('扫一扫');
-                },
-                child: Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: Utils.iconFont(0xe8b6, Colors.white, 22),
+          Container(
+            height: searchBarHeight,
+            padding: EdgeInsets.only(
+              left: 12,
+              right: 12,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 12, right: 14),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Utils.iconFont(0xe692, Color(0xFF999999)),
+                          Expanded(
+                              child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/search');
+                            },
+                            child: Container(
+                              color: Colors.transparent,
+                              height: double.infinity,
+                              alignment: Alignment.centerLeft,
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text(
+                                '机械键盘',
+                                style:
+                                    TextStyle(color: Color(0xFF999999), fontSize: 14),
+                              ),
+                            ),
+                          )),
+                          Utils.iconFont(0xe614, Color(0xFF999999), 16),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  print('消息');
-                },
-                child: Container(
-                  child: Utils.iconFont(0xe8b8, Colors.white, 22),
-                ),
-              ),
-            ],
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print('扫一扫');
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Utils.iconFont(0xe8b6, Colors.white, 22),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        print('消息');
+                      },
+                      child: Container(
+                        child: Utils.iconFont(0xe8b8, Colors.white, 22),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           )
         ],
-      ),
+      )
     );
   }
 
@@ -576,66 +661,47 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
-    double screenHeight = screenSize.height;
+    // 屏幕高度
+    double screenHeight = MediaQuery.of(context).size.height;
+    // 底部安全区域高度
+    double bottom = MediaQueryData.fromWindow(window).padding.bottom;
+    // 容器距离顶部的高度
+    double mainOffsetSearch = 5;
+    // 容器距离顶部的距离
+    double mainTop = (statusBarHeight + searchBarHeight + mainOffsetSearch);
+    // 容器高度（屏幕高度 - 状态栏 - 搜索栏 - offset - 底部导航 - 底部安全区域）
+    double mainHeight = screenHeight - (statusBarHeight + searchBarHeight + mainOffsetSearch) - bottomBarHeight - bottom;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         backgroundColor: Color(0xFFF2F2F2),
-        body: Column(
+        body: Stack(
           children: [
-            _buildSearch(),
-            Stack(
-              children: [
-                Container(
-                  child: ClipPath(
-                    clipper: BackgroundClipper(),
-                    child: Container(
-                      width: double.infinity,
-                      height: offsetTop <= topBackgroundHeight
-                          ? (topBackgroundHeight - offsetTop)
-                          : 0,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFFB2E1B),
-                            Color(0xFFFF5640),
-                          ],
-                        ),
-                      ),
-                    ),
+            _buildBackground(),
+            _buildSearchBar(),
+            Container(
+              margin: EdgeInsets.only(top: mainTop),
+              height: mainHeight,
+              child: NotificationListener(
+                // ignore: missing_return
+                onNotification: (scrollNotification) {
+                  if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
+                    _onScroll(scrollNotification.metrics.pixels);
+                  }
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _buildSlideNav(),
+                      _buildBanner(),
+                      _scrollXIcon(),
+                      _buildSeckill(),
+                      _buildGoodsList()
+                    ],
                   ),
                 ),
-                Container(
-                  height: screenHeight - statusBarHeight - 120 - 1,
-                  child: NotificationListener(
-                    // ignore: missing_return
-                    onNotification: (scrollNotification) {
-                      if (scrollNotification is ScrollUpdateNotification &&
-                          scrollNotification.depth == 0) {
-                        _onScroll(scrollNotification.metrics.pixels);
-                      }
-                    },
-                    child: SingleChildScrollView(
-                      child: Container(
-                        child: Column(
-                          children: [
-                            _buildSlideNav(),
-                            _buildBanner(),
-                            _scrollXIcon(),
-                            _buildSeckill(),
-                            _buildGoodsList()
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),
