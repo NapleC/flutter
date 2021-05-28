@@ -3,8 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/mock/mock.dart';
+import 'package:flutter_jd/pages/goods/goods_detail.dart';
+import 'package:flutter_jd/pages/search/index.dart';
+import 'package:flutter_jd/pages/tabbar/category.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:get/route_manager.dart';
 
 // 首页
 class Home extends StatefulWidget {
@@ -50,7 +54,7 @@ class _HomeState extends State<Home> {
 
   // 构建背景（可使用默认背景、图片背景）
   _buildBackground([String type = 'default']) {
-    if(type == 'default') {
+    if (type == 'default') {
       BoxDecoration defaultBackground = BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -61,28 +65,28 @@ class _HomeState extends State<Home> {
           ],
         ),
       );
-      
+
       return Container(
         child: Column(
           children: [
             Container(
-              height: statusBarHeight + searchBarHeight + 5,
-              decoration: defaultBackground
-            ),
+                height: statusBarHeight + searchBarHeight + 5,
+                decoration: defaultBackground),
             Container(
               child: ClipPath(
                 clipper: BackgroundClipper(),
                 child: Container(
-                  width: double.infinity,
-                  height: offsetTop <= backgroundHeightDynamic ? (backgroundHeightDynamic - offsetTop): 0,
-                  decoration: defaultBackground
-                ),
+                    width: double.infinity,
+                    height: offsetTop <= backgroundHeightDynamic
+                        ? (backgroundHeightDynamic - offsetTop)
+                        : 0,
+                    decoration: defaultBackground),
               ),
             ),
           ],
         ),
       );
-    }else if(type == 'image') {
+    } else if (type == 'image') {
       BoxDecoration imageBackground = BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -93,21 +97,26 @@ class _HomeState extends State<Home> {
           ],
         ),
       );
-      
+
       return Container(
         child: Column(
           children: [
             Container(
               height: statusBarHeight + searchBarHeight + 5,
-              decoration: imageBackground
+              decoration: imageBackground,
             ),
             Container(
               child: ClipPath(
                 clipper: BackgroundClipper(),
                 child: Container(
                   width: double.infinity,
-                  height: offsetTop <= backgroundHeightDynamic ? (backgroundHeightDynamic - offsetTop): 0,
-                  child: Image.asset('assets/images/my/my_bg.png', fit: BoxFit.cover,),
+                  height: offsetTop <= backgroundHeightDynamic
+                      ? (backgroundHeightDynamic - offsetTop)
+                      : 0,
+                  child: Image.asset(
+                    'assets/images/my/my_bg.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -120,83 +129,85 @@ class _HomeState extends State<Home> {
   // 搜索栏
   Widget _buildSearchBar() {
     return Container(
-      child: Column(
-        children: [
-          Container(
-            height: statusBarHeight,
+        child: Column(
+      children: [
+        Container(
+          height: statusBarHeight,
+        ),
+        Container(
+          height: searchBarHeight,
+          padding: EdgeInsets.only(
+            left: 12,
+            right: 12,
           ),
-          Container(
-            height: searchBarHeight,
-            padding: EdgeInsets.only(
-              left: 12,
-              right: 12,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(right: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Container(
-                    margin: EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 12, right: 14),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Utils.iconFont(0xe692, Color(0xFF999999)),
-                          Expanded(
-                              child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/search');
-                            },
-                            child: Container(
-                              color: Colors.transparent,
-                              height: double.infinity,
-                              alignment: Alignment.centerLeft,
-                              margin: EdgeInsets.only(left: 5),
-                              child: Text(
-                                '机械键盘',
-                                style:
-                                    TextStyle(color: Color(0xFF999999), fontSize: 14),
-                              ),
+                    padding: EdgeInsets.only(left: 12, right: 14),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Utils.iconFont(0xe692, Color(0xFF999999)),
+                        Expanded(
+                            child: GestureDetector(
+                          onTap: () {
+                            Get.to(
+                              () => SearchPage(),
+                              transition: Transition.downToUp,
+                            );
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: double.infinity,
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.only(left: 5),
+                            child: Text(
+                              '机械键盘',
+                              style: TextStyle(
+                                  color: Color(0xFF999999), fontSize: 14),
                             ),
-                          )),
-                          Utils.iconFont(0xe614, Color(0xFF999999), 16),
-                        ],
-                      ),
+                          ),
+                        )),
+                        Utils.iconFont(0xe614, Color(0xFF999999), 16),
+                      ],
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        print('扫一扫');
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 10),
-                        child: Utils.iconFont(0xe8b6, Colors.white, 22),
-                      ),
+              ),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      print('扫一扫');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 10),
+                      child: Utils.iconFont(0xe8b6, Colors.white, 22),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        print('消息');
-                      },
-                      child: Container(
-                        child: Utils.iconFont(0xe8b8, Colors.white, 22),
-                      ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print('消息');
+                    },
+                    child: Container(
+                      child: Utils.iconFont(0xe8b8, Colors.white, 22),
                     ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      )
-    );
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+      ],
+    ));
   }
 
   // 导航栏
@@ -269,8 +280,9 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, "/category",
-                          arguments: {'back': true});
+                      Get.to(
+                        () => Category(arguments: {'back': true}),
+                      );
                     },
                     child: Row(
                       children: [
@@ -312,12 +324,13 @@ class _HomeState extends State<Home> {
             right: 0,
             bottom: 7,
             child: Container(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _bannerPagetion(config.itemCount, config.activeIndex)
-              ],
-            )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _bannerPagetion(config.itemCount, config.activeIndex)
+                ],
+              ),
+            ),
           );
         }),
         itemBuilder: (BuildContext context, int index) {
@@ -583,11 +596,13 @@ class _HomeState extends State<Home> {
           goodsList.length,
           (i) => GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, "/goods_detail", arguments: {
-                'imgUrl': goodsList[i]['src'],
-                'name': goodsList[i]['name'],
-                'price': goodsList[i]['price'],
-              });
+              Get.to(
+                () => GoodsDetail(arguments: {
+                  'imgUrl': goodsList[i]['src'],
+                  'name': goodsList[i]['name'],
+                  'price': goodsList[i]['price'],
+                }),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -670,7 +685,10 @@ class _HomeState extends State<Home> {
     // 容器距离顶部的距离
     double mainTop = (statusBarHeight + searchBarHeight + mainOffsetSearch);
     // 容器高度（屏幕高度 - 状态栏 - 搜索栏 - offset - 底部导航 - 底部安全区域）
-    double mainHeight = screenHeight - (statusBarHeight + searchBarHeight + mainOffsetSearch) - bottomBarHeight - bottom;
+    double mainHeight = screenHeight -
+        (statusBarHeight + searchBarHeight + mainOffsetSearch) -
+        bottomBarHeight -
+        bottom;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -686,7 +704,8 @@ class _HomeState extends State<Home> {
               child: NotificationListener(
                 // ignore: missing_return
                 onNotification: (scrollNotification) {
-                  if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
+                  if (scrollNotification is ScrollUpdateNotification &&
+                      scrollNotification.depth == 0) {
                     _onScroll(scrollNotification.metrics.pixels);
                   }
                 },

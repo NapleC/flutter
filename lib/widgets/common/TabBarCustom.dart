@@ -9,7 +9,7 @@ class TabBarCustom extends StatelessWidget {
   TabBarCustom({
     Key key,
     @required this.tabs,
-    this.indicatorInsets = const EdgeInsets.fromLTRB(16, 0, 16, 0),
+    this.indicatorInsets = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.tabController,
   }) : super(key: key);
 
@@ -23,16 +23,29 @@ class TabBarCustom extends StatelessWidget {
       child: Container(
         child: TabBar(
           controller: tabController,
-          indicator: UnderlineIndicator(insets: indicatorInsets),
-          // indicatorSize: TabBarIndicatorSize.label,
-          unselectedLabelColor: Colors.red,
-
+          isScrollable: true,
+          indicator: UnderlineIndicator(
+            insets: indicatorInsets,
+            borderSide: BorderSide(
+              width: 2.5,
+              color: Colors.red,
+            ),
+          ),
+          indicatorSize: TabBarIndicatorSize.label,
+          unselectedLabelColor: Color(0xFF555555),
+          labelColor: Color(0xFF222222),
           labelStyle: TextStyle(fontWeight: FontWeight.bold),
           unselectedLabelStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
-          tabs: tabs.map((text) => Tab(text: text)).toList(),
+          tabs: tabs
+              .map(
+                (text) => Container(
+                  child: Tab(text: text),
+                ),
+              )
+              .toList(),
         ),
       ),
     );

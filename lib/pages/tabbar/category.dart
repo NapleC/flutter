@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/mock/mock.dart';
+import 'package:flutter_jd/pages/search/index.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
+import 'package:get/route_manager.dart';
 
 // 分类
 class Category extends StatefulWidget {
@@ -23,7 +25,7 @@ class _MyState extends State<Category> {
     if (widget.arguments['back']) {
       return GestureDetector(
         onTap: () {
-          Navigator.pop(context);
+          Get.back();
         },
         child: Container(
           width: double.infinity,
@@ -66,7 +68,11 @@ class _MyState extends State<Category> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/search');
+                          Get.to(
+                            () => SearchPage(),
+                            transition: Transition.downToUp,
+                            fullscreenDialog: true,
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 5),

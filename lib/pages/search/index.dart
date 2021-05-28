@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
+import 'package:get/route_manager.dart';
 
 // 搜索
 class SearchPage extends StatefulWidget {
@@ -45,22 +46,24 @@ class _MyState extends State<SearchPage> {
                   prefixIconConstraints: BoxConstraints(minWidth: 35),
                   suffixIcon: Utils.iconFont(0xe614),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0x00FF0000)),
-                      borderRadius: BorderRadius.all(Radius.circular(100))),
+                    borderSide: BorderSide(color: Color(0x00FF0000)),
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                  ),
                   hintText: '机械键盘',
                   hintStyle: TextStyle(
                     fontSize: 14,
                   ),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0x00000000)),
-                      borderRadius: BorderRadius.all(Radius.circular(100))),
+                    borderSide: BorderSide(color: Color(0x00000000)),
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                  ),
                 ),
               ),
             ),
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Get.back();
             },
             child: Container(
               padding: EdgeInsets.only(left: 12),
@@ -77,15 +80,18 @@ class _MyState extends State<SearchPage> {
       child: SingleChildScrollView(
           child: GestureDetector(
         onPanDown: (_) {
-          Utils.closeKeyboard(context);
+          Utils.hideKeyboard(context);
         },
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.fromLTRB(12, 5, 12, 10),
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.horizontal(
-                  right: Radius.circular(12), left: Radius.circular(12))),
+            color: Colors.white,
+            borderRadius: BorderRadius.horizontal(
+              right: Radius.circular(12),
+              left: Radius.circular(12),
+            ),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -99,7 +105,9 @@ class _MyState extends State<SearchPage> {
                       child: Text(
                         '搜索历史',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     Utils.iconFont(0xe8b9)
@@ -113,8 +121,9 @@ class _MyState extends State<SearchPage> {
                     margin: EdgeInsets.only(bottom: 8, right: 8),
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                        color: Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(20)),
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: Text(
                       historyList[index],
                       style: TextStyle(fontSize: 12),

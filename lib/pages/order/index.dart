@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/mock/mock.dart';
+import 'package:flutter_jd/pages/goods/goods_detail.dart';
+import 'package:flutter_jd/pages/search/index.dart';
 import 'package:flutter_jd/utils/utils.dart';
+import 'package:flutter_jd/widgets/common/TabBarCustom.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/route_manager.dart';
 
 // 订单
 class Order extends StatefulWidget {
@@ -63,11 +67,13 @@ class _MyState extends State<Order> with SingleTickerProviderStateMixin {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/goods_detail", arguments: {
-                      'imgUrl': item['src'],
-                      'name': item['name'],
-                      'price': item['price'],
-                    });
+                    Get.to(
+                      () => GoodsDetail(arguments: {
+                        'imgUrl': item['src'],
+                        'name': item['name'],
+                        'price': item['price'],
+                      }),
+                    );
                   },
                   child: Container(
                     child: ClipRRect(
@@ -112,7 +118,7 @@ class _MyState extends State<Order> with SingleTickerProviderStateMixin {
   _buildHeadLeftBtn() {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        Get.back();
       },
       child: Container(
         width: double.infinity,
@@ -152,7 +158,11 @@ class _MyState extends State<Order> with SingleTickerProviderStateMixin {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/search');
+                          Get.to(
+                            () => SearchPage(),
+                            transition: Transition.downToUp,
+                            fullscreenDialog: true,
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 5),
@@ -201,21 +211,25 @@ class _MyState extends State<Order> with SingleTickerProviderStateMixin {
                     initialIndex: 0,
                     child: Column(
                       children: <Widget>[
-                        TabBar(
-                          controller: _tabController,
-                          indicatorColor: Colors.red,
-                          indicatorSize: TabBarIndicatorSize.values[1],
-                          labelColor: Colors.red,
-                          unselectedLabelColor: Colors.black,
-                          indicatorWeight: 3.0,
-                          labelStyle: TextStyle(
-                            fontSize: 15,
-                            height: 2,
-                          ),
-                          tabs: tabs.map((f) {
-                            return Text(f);
-                          }).toList(),
+                        TabBarCustom(
+                          tabs: tabs,
+                          tabController: _tabController,
                         ),
+                        // TabBar(
+                        //   controller: _tabController,
+                        //   indicatorColor: Colors.red,
+                        //   indicatorSize: TabBarIndicatorSize.values[1],
+                        //   labelColor: Colors.red,
+                        //   unselectedLabelColor: Colors.black,
+                        //   indicatorWeight: 3.0,
+                        //   labelStyle: TextStyle(
+                        //     fontSize: 15,
+                        //     height: 2,
+                        //   ),
+                        //   tabs: tabs.map((f) {
+                        //     return Text(f);
+                        //   }).toList(),
+                        // ),
                         Expanded(
                           child: TabBarView(
                             controller: _tabController,

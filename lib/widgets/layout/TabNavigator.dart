@@ -4,6 +4,7 @@ import 'package:flutter_jd/pages/tabbar/category.dart';
 import 'package:flutter_jd/pages/tabbar/find.dart';
 import 'package:flutter_jd/pages/tabbar/home.dart';
 import 'package:flutter_jd/pages/tabbar/my.dart';
+import 'package:flutter_jd/widgets/common/ShowAniationDialog.dart';
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -40,9 +41,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           onPageChanged: _pageChange,
           children: <Widget>[
             Home(),
-            Category(
-              arguments: {'back': false},
-            ),
+            Category(arguments: {'back': false}),
             Find(),
             Cart(),
             My()
@@ -71,11 +70,11 @@ class _TabNavigatorState extends State<TabNavigator> {
   _bottomItem(String title, IconData icon, int index) {
     return BottomNavigationBarItem(
       icon: Icon(icon, color: _defaultColor),
-      activeIcon: new Transform(
+      activeIcon: Transform(
         child: Icon(icon, color: _activeColor),
-        alignment: Alignment.center,
-        transform: new Matrix4.identity()..scale(1.1),
+        transform: Matrix4.identity()..scale(1.1),
       ),
+      // ignore: deprecated_member_use
       title: Text(
         title,
         style: TextStyle(

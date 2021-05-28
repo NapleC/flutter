@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/utils/utils.dart';
+import 'package:get/route_manager.dart';
 
 // 商品详情
 class GoodsDetail extends StatefulWidget {
@@ -42,7 +43,7 @@ class _TabNavigatorState extends State<GoodsDetail> {
           padding: EdgeInsets.only(left: 5, right: 10),
           child: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Get.back();
             },
             child: Container(
               padding: EdgeInsets.all(5),

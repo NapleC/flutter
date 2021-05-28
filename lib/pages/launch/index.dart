@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/widgets/layout/TabNavigator.dart';
+import 'package:get/route_manager.dart';
 
-// 启动页
+// 启动页/广告页
 class LaunchPage extends StatefulWidget {
   @override
   _MyState createState() => _MyState();
@@ -16,14 +17,12 @@ class _MyState extends State<LaunchPage> {
   @override
   void initState() {
     super.initState();
+    setStatus();
     startTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    //  隐藏状态栏，保留底部按钮栏
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
@@ -38,23 +37,24 @@ class _MyState extends State<LaunchPage> {
               ),
             ),
             Positioned(
-              bottom: 35,
+              bottom: 40,
               right: 20,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 30.0, 10.0, 0.0),
-                child: FlatButton(
-                  color: Color.fromRGBO(0, 0, 0, 0.3),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    "$count 跳过",
-                    style: TextStyle(color: Colors.white, fontSize: 15.0),
-                  ),
-                  onPressed: () {
-                    navigationPage();
-                  },
+              // ignore: deprecated_member_use
+              child: FlatButton(
+                minWidth: 80,
+                height: 34,
+                padding: EdgeInsets.only(bottom: 2),
+                color: Color.fromRGBO(0, 0, 0, 0.3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                child: Text(
+                  "$count 跳过",
+                  style: TextStyle(color: Colors.white, fontSize: 13.0),
+                ),
+                onPressed: () {
+                  toHomePage();
+                },
               ),
             ),
           ],
@@ -63,33 +63,42 @@ class _MyState extends State<LaunchPage> {
     );
   }
 
+  // 隐藏状态栏，保留底部按钮栏
+  void setStatus() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  }
+
+  // 设置启动图时间
   void startTime() async {
-    //设置启动图生效时间
-    var _duration = new Duration(seconds: 1);
-    Timer(_duration, () {
-      // 空等1秒之后再计时
+    Timer(Duration(milliseconds: 0), () {
       _timer = Timer.periodic(const Duration(milliseconds: 1000), (v) {
-        count--;
+        setState(() {
+          --count;
+        });
         if (count == 0) {
-          navigationPage();
-        } else {
-          setState(() {});
+          Timer(Duration(milliseconds: 500), () {
+            toHomePage();
+          });
         }
       });
       return _timer;
     });
   }
 
-  void navigationPage() {
-    _timer.cancel();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  // 跳转到主页
+  void toHomePage() {
+    print(_timer);
+    if (_timer != null) {
+      _timer.cancel();
+      SystemChrome.setEnabledSystemUIOverlays(
+        SystemUiOverlay.values,
+      );
 
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        pageBuilder: (cxt, ani1, ani2) {
-          return FadeTransition(child: TabNavigator(), opacity: ani1);
-        },
-      ),
-    );
+      Get.off(
+        () => new TabNavigator(),
+        duration: Duration(milliseconds: 600),
+        transition: Transition.size,
+      );
+    }
   }
 }

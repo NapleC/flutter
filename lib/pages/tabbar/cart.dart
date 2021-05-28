@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/mock/mock.dart';
+import 'package:flutter_jd/pages/goods/goods_detail.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_jd/widgets/common/PullRefresh.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/route_manager.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // 购物车
@@ -229,11 +231,13 @@ class MyState extends State<Cart> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/goods_detail", arguments: {
-                      'imgUrl': item['src'],
-                      'name': item['name'],
-                      'price': item['price'],
-                    });
+                    Get.to(
+                      () => GoodsDetail(arguments: {
+                        'imgUrl': item['src'],
+                        'name': item['name'],
+                        'price': item['price'],
+                      }),
+                    );
                   },
                   child: Container(
                     child: ClipRRect(

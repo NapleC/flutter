@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_jd/routes/routes.dart';
-import 'package:flutter_jd/widgets/layout/TabNavigator.dart';
+import 'package:flutter_jd/pages/launch/index.dart';
+import 'package:flutter_jd/routes/index.dart';
+import 'package:get/route_manager.dart';
 
 void main() {
   runApp(App());
@@ -24,27 +25,17 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: '京东',
+      getPages: AppPages.pages,
+      home: LaunchPage(),
       builder: BotToastInit(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.light,
-      ),
-      initialRoute: '/launch_page',
-      home: TabNavigator(),
-      onGenerateRoute: onGenerateRoute,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.native, // 默认过渡动画
     );
-  }
-
-  // 隐藏键盘
-  void hideKeyboard(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-      FocusManager.instance.primaryFocus.unfocus();
-    }
   }
 }

@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/mock/mock.dart';
+import 'package:flutter_jd/pages/goods/goods_detail.dart';
 import 'package:flutter_jd/utils/utils.dart';
+import 'package:get/route_manager.dart';
 
 // 我的
 class My extends StatefulWidget {
@@ -91,7 +93,7 @@ class _TabNavigatorState extends State<My> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, "/setting");
+                      Get.toNamed('/setting');
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 12),
@@ -142,11 +144,15 @@ class _TabNavigatorState extends State<My> {
       list.add(
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, "/goods_detail", arguments: {
-              'imgUrl': productList[i]['src'],
-              'name': productList[i]['name'],
-              'price': productList[i]['price'],
-            });
+            Get.to(
+              () => GoodsDetail(
+                arguments: {
+                  'imgUrl': productList[i]['src'],
+                  'name': productList[i]['name'],
+                  'price': productList[i]['price'],
+                },
+              ),
+            );
           },
           child: Container(
             decoration: BoxDecoration(
@@ -252,7 +258,7 @@ class _TabNavigatorState extends State<My> {
             child: Container(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/order');
+                  Get.toNamed('/order');
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -522,8 +528,7 @@ class _TabNavigatorState extends State<My> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, "/setting");
+                                              Get.toNamed('/setting');
                                             },
                                             child: Container(
                                               margin:

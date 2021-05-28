@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jd/pages/login/index.dart';
+import 'package:flutter_jd/pages/search/index.dart';
 import 'package:flutter_jd/utils/utils.dart';
+import 'package:flutter_jd/widgets/common/RouteAnimation.dart';
 import 'package:flutter_jd/widgets/common/ShowAniationDialog.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
+import 'package:get/route_manager.dart';
 
 // 设置
 class SettingPage extends StatefulWidget {
@@ -127,7 +131,7 @@ class _MyState extends State<SettingPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                         child: Container(
                           width: 90,
@@ -146,8 +150,8 @@ class _MyState extends State<SettingPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, '/login');
+                          Get.back();
+                          Get.toNamed('/login');
                         },
                         child: Container(
                           width: 90,

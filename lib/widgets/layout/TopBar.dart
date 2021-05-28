@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/utils/utils.dart';
+import 'package:get/route_manager.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final PreferredSizeWidget bottom;
@@ -12,16 +13,17 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isBack;
   final Brightness brightness;
   final double height;
-  TopBar(
-      {this.bottom,
-      this.title,
-      this.actions,
-      this.titleStyle,
-      this.backgroundColor,
-      this.backImgName,
-      this.isBack: false,
-      this.brightness,
-      this.height: 45});
+  TopBar({
+    this.bottom,
+    this.title,
+    this.actions,
+    this.titleStyle,
+    this.backgroundColor,
+    this.backImgName,
+    this.isBack: false,
+    this.brightness,
+    this.height: 45,
+  });
   @override
   _TopBarState createState() => _TopBarState();
 
@@ -39,7 +41,7 @@ class _TopBarState extends State<TopBar> {
       leading: GestureDetector(
         onTap: () {
           if (widget.isBack) {
-            Navigator.pop(context);
+            Get.back();
           }
         },
         child: Opacity(

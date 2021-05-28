@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/mock/mock.dart';
+import 'package:flutter_jd/pages/goods/goods_detail.dart';
 import 'package:flutter_jd/widgets/common/PullRefresh.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
+import 'package:get/route_manager.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // 发现
@@ -50,11 +52,13 @@ class _MyState extends State<Find> {
       list.add(
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, "/goods_detail", arguments: {
-              'imgUrl': productList[i]['src'],
-              'name': productList[i]['name'],
-              'price': productList[i]['price'],
-            });
+            Get.to(
+              () => GoodsDetail(arguments: {
+                'imgUrl': productList[i]['src'],
+                'name': productList[i]['name'],
+                'price': productList[i]['price'],
+              }),
+            );
           },
           child: Container(
             decoration: BoxDecoration(

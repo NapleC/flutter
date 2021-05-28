@@ -10,7 +10,6 @@ class UnderlineIndicator extends Decoration {
         assert(insets != null);
 
   final StrokeCap strokeCap;
-
   final BorderSide borderSide;
   final EdgeInsetsGeometry insets;
 
@@ -59,18 +58,10 @@ class _UnderlinePainter extends BoxPainter {
     assert(textDirection != null);
     final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
 
-    // 这里面的参数控制宽度、偏移
-    // return Rect.fromLTWH(
-    //   indicator.left + 15,
-    //   indicator.bottom - borderSide.width,
-    //   indicator.width - 30,
-    //   borderSide.width,
-    // );
-
     return Rect.fromLTWH(
-      indicator.left,
+      indicator.left + 25,
       indicator.bottom - borderSide.width,
-      indicator.width,
+      indicator.width - 50,
       borderSide.width,
     );
   }
