@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_jd/pages/login/index.dart';
-import 'package:flutter_jd/pages/search/index.dart';
 import 'package:flutter_jd/utils/utils.dart';
-import 'package:flutter_jd/widgets/common/RouteAnimation.dart';
 import 'package:flutter_jd/widgets/common/ShowAniationDialog.dart';
 import 'package:flutter_jd/widgets/layout/TopBar.dart';
 import 'package:get/route_manager.dart';
@@ -62,42 +59,52 @@ class _MyState extends State<SettingPage> {
     {
       'name': '关于京东APP',
       'label': '',
+    },
+    {
+      'name': '开发者博客',
+      'label': 'blog',
     }
   ];
 
   _buildCard(List list) {
-    return Container(
-      margin: EdgeInsets.only(top: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: List.generate(
-          list.length,
-          (index) => Container(
-            height: 50,
-            padding: EdgeInsets.only(left: 12, right: 12),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
+    return InkWell(
+      onTap: () {
+        Get.toNamed('/blog');
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          children: List.generate(
+            list.length,
+            (index) => Container(
+              height: 50,
+              padding: EdgeInsets.only(left: 12, right: 12),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
                     color: list.length != index
                         ? Color(0xFFF8F8F8)
                         : Colors.transparent,
-                    width: 1),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  list[index]['name'],
-                  style: TextStyle(
-                    fontSize: 16,
+                    width: 1,
                   ),
                 ),
-                Utils.iconFont(0xe7e7, Color(0xFF888888), 16)
-              ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    list[index]['name'],
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  Utils.iconFont(0xe7e7, Color(0xFF888888), 16)
+                ],
+              ),
             ),
           ),
         ),
@@ -188,7 +195,6 @@ class _MyState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF2F2F2),
       appBar: TopBar(
         title: '账户设置',
         isBack: true,

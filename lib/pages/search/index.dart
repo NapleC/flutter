@@ -33,7 +33,6 @@ class _MyState extends State<SearchPage> {
             child: Container(
               height: 32,
               child: TextField(
-                cursorColor: Color(0XFF097DFD),
                 cursorHeight: 15,
                 autofocus: true,
                 autocorrect: true,

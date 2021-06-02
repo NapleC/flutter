@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_jd/pages/agreement/privacy.dart';
+import 'package:flutter_jd/pages/blog/index.dart';
 import 'package:flutter_jd/pages/goods/goods_detail.dart';
 import 'package:flutter_jd/pages/launch/index.dart';
 import 'package:flutter_jd/pages/login/index.dart';
@@ -34,5 +34,6 @@ abstract class AppPages {
     GetPage(name: '/goods_detail', page: () => GoodsDetail(), title: '商品详情'),
     GetPage(name: '/order', page: () => Order(), title: '订单'),
     GetPage(name: '/privacy', page: () => Privacy(), title: '隐私政策'),
+    GetPage(name: '/blog', page: () => Blog(), title: '博客'),
   ];
 }

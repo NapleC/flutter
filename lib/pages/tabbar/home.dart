@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jd/mock/mock.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_jd/pages/tabbar/category.dart';
 import 'package:flutter_jd/utils/utils.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/route_manager.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // 首页
 class Home extends StatefulWidget {
@@ -47,9 +47,19 @@ class _HomeState extends State<Home> {
   }
 
   init() {
+    requestPermiss();
     setState(() {
       backgroundHeightDynamic = statusBarHeight + 85;
     });
+  }
+
+  // 请求开启权限（单个）
+  void requestPermiss() async {
+    PermissionStatus status = await Permission.notification.request();
+    // 通知被永久关闭
+    if (status.isPermanentlyDenied) {
+      openAppSettings();
+    }
   }
 
   // 构建背景（可使用默认背景、图片背景）
@@ -70,17 +80,19 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Container(
-                height: statusBarHeight + searchBarHeight + 5,
-                decoration: defaultBackground),
+              height: statusBarHeight + searchBarHeight + 5,
+              decoration: defaultBackground,
+            ),
             Container(
               child: ClipPath(
                 clipper: BackgroundClipper(),
                 child: Container(
-                    width: double.infinity,
-                    height: offsetTop <= backgroundHeightDynamic
-                        ? (backgroundHeightDynamic - offsetTop)
-                        : 0,
-                    decoration: defaultBackground),
+                  width: double.infinity,
+                  height: offsetTop <= backgroundHeightDynamic
+                      ? (backgroundHeightDynamic - offsetTop)
+                      : 0,
+                  decoration: defaultBackground,
+                ),
               ),
             ),
           ],
@@ -172,7 +184,9 @@ class _HomeState extends State<Home> {
                             child: Text(
                               '机械键盘',
                               style: TextStyle(
-                                  color: Color(0xFF999999), fontSize: 14),
+                                color: Color(0xFF999999),
+                                fontSize: 14,
+                              ),
                             ),
                           ),
                         )),
@@ -693,7 +707,6 @@ class _HomeState extends State<Home> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: Color(0xFFF2F2F2),
         body: Stack(
           children: [
             _buildBackground(),
@@ -734,18 +747,8 @@ class BackgroundClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-
     path.lineTo(0, size.height / 1.2);
-
-    path.cubicTo(
-      size.width / 15,
-      size.height,
-      size.width / 10 * 12,
-      size.height / 3 * 3,
-      size.width,
-      size.height / 10000,
-    );
-
+    path.cubicTo(0, size.height, size.width * 1.2, size.height, size.width, 0);
     return path;
   }
 

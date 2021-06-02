@@ -14,10 +14,13 @@ class GoodsDetail extends StatefulWidget {
 }
 
 class _TabNavigatorState extends State<GoodsDetail> {
-  // 滚动最大距离
-  double appbarScrollOffset = 150;
-  // 透明值
-  double appBarAlpha = 0;
+  double appbarScrollOffset = 150; // 滚动最大距离
+  double appBarAlpha = 0; // 透明值
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   _onScroll(offset) {
     double alpha = offset / appbarScrollOffset;
