@@ -4,9 +4,11 @@ import 'package:flutter_jd/pages/tabbar/category.dart';
 import 'package:flutter_jd/pages/tabbar/find.dart';
 import 'package:flutter_jd/pages/tabbar/home.dart';
 import 'package:flutter_jd/pages/tabbar/my.dart';
-import 'package:flutter_jd/widgets/common/ShowAniationDialog.dart';
 
 class TabNavigator extends StatefulWidget {
+  final int initTab;
+  TabNavigator({Key key, this.initTab = 0}) : super(key: key);
+
   @override
   _TabNavigatorState createState() => _TabNavigatorState();
 }

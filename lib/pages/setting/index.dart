@@ -15,72 +15,75 @@ class _MyState extends State<SettingPage> {
   List cardList1 = [
     {
       'name': '账户与安全',
-      'label': '',
+      'page': '',
     },
     {
       'name': '设置字体大小',
-      'label': '',
+      'page': '',
     },
     {
       'name': '支付设置',
-      'label': '',
+      'page': '',
     },
     {
       'name': '发票抬头管理',
-      'label': '',
+      'page': '',
     },
     {
       'name': '我的档案',
-      'label': '',
+      'page': '',
     },
     {
       'name': '通用',
-      'label': '',
+      'page': '',
     },
   ];
 
   List cardList2 = [
     {
       'name': 'PLUS会员',
-      'label': '',
+      'page': '',
     },
     {
       'name': '家庭号设置',
-      'label': '',
+      'page': '',
     },
     {
       'name': '功能实验室',
-      'label': '',
+      'page': '',
     },
     {
       'name': '功能反馈',
-      'label': '',
+      'page': '',
     },
     {
-      'name': '关于京东APP',
-      'label': '',
+      'name': '关于APP',
+      'page': '',
     },
     {
       'name': '开发者博客',
-      'label': 'blog',
+      'page': '/blog',
     }
   ];
 
   _buildCard(List list) {
-    return InkWell(
-      onTap: () {
-        Get.toNamed('/blog');
-      },
-      child: Container(
-        margin: EdgeInsets.only(top: 12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          children: List.generate(
-            list.length,
-            (index) => Container(
+    return Container(
+      margin: EdgeInsets.only(top: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        children: List.generate(
+          list.length,
+          (index) => GestureDetector(
+            onTap: () {
+              String page = list[index]['page'];
+              if (page != '') {
+                Get.toNamed(page);
+              }
+            },
+            child: Container(
               height: 50,
               padding: EdgeInsets.only(left: 12, right: 12),
               decoration: BoxDecoration(
@@ -214,8 +217,9 @@ class _MyState extends State<SettingPage> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 12),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15)),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Text(
                   '退出登录',
                   style: TextStyle(fontSize: 16),

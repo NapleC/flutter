@@ -20,7 +20,7 @@ dependencies:
   # 网络请求
   dio: ^4.0.0
   # 提示
-  bot_toast: ^3.0.0
+  bot_toast: ^4.0.1
   shared_preferences: ^0.5.7+3
   connectivity: ^0.4.2
   # 下拉刷新
@@ -33,6 +33,8 @@ dependencies:
   flutter_cupertino_localizations: ^1.0.1
   # 授权
   permission_handler: ^8.0.0+2
+  # webview
+  webview_flutter: ^2.0.8
 
 dev_dependencies:
   flutter_test:

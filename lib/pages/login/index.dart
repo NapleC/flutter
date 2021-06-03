@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_jd/utils/utils.dart';
+import 'package:flutter_jd/widgets/layout/TabNavigator.dart';
 import 'package:get/route_manager.dart';
 
 // 登录
@@ -13,6 +14,18 @@ class _MyState extends State<Login> {
     return Text(
       text,
       style: TextStyle(color: Color(0xFF999999), fontSize: 12),
+    );
+  }
+
+  _buildLinkText(String text, String page) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(page);
+      },
+      child: Text(
+        text,
+        style: TextStyle(color: Color(0xFF4a90e2), fontSize: 12),
+      ),
     );
   }
 
@@ -44,8 +57,10 @@ class _MyState extends State<Login> {
                         height: 75,
                         margin: EdgeInsets.only(top: 80),
                         decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Color(0xFFEEEEEE), width: 2),
+                          border: Border.all(
+                            color: Color(0xFFEEEEEE),
+                            width: 2,
+                          ),
                           borderRadius: BorderRadius.circular(75),
                         ),
                         child: ClipRRect(
@@ -68,24 +83,41 @@ class _MyState extends State<Login> {
                       ),
                     ),
                     Container(
-                      width: 300,
-                      height: 45,
-                      alignment: Alignment.center,
                       margin: EdgeInsets.only(top: 50),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFFFA2F19),
-                            Color(0xFFFA722E),
-                          ],
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xFFFA2F19),
+                              Color(0xFFFA722E),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Text(
-                        '本机号码一键登录',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(30),
+                          splashColor: Color(0xFFFA2F19),
+                          onTap: () {
+                            Get.off(
+                              () => TabNavigator(),
+                              transition: Transition.noTransition,
+                            );
+                          },
+                          child: Container(
+                            width: 300,
+                            height: 45,
+                            alignment: Alignment.center,
+                            child: Text(
+                              '本机号码一键登录',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     Container(
@@ -93,8 +125,10 @@ class _MyState extends State<Login> {
                       margin: EdgeInsets.only(top: 12),
                       child: Text(
                         '其他方式登录',
-                        style:
-                            TextStyle(color: Color(0xFF666666), fontSize: 13),
+                        style: TextStyle(
+                          color: Color(0xFF666666),
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ],
@@ -124,17 +158,9 @@ class _MyState extends State<Login> {
                           alignment: WrapAlignment.start,
                           children: [
                             _buildText('使用手机号一键登录即代表您已同意'),
-                            Text(
-                              '《XX隐私政策》',
-                              style: TextStyle(
-                                  color: Color(0xFF4a90e2), fontSize: 12),
-                            ),
+                            _buildLinkText('《隐私协议》', '/privacy'),
                             _buildText('和'),
-                            Text(
-                              '《XX账号认证服务条款》',
-                              style: TextStyle(
-                                  color: Color(0xFF4a90e2), fontSize: 12),
-                            ),
+                            _buildLinkText('《账号认证服务条款》', '/privacy'),
                             _buildText('并使用本手机号码登录'),
                           ],
                         ))

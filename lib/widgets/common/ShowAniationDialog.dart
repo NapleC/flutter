@@ -80,8 +80,10 @@ Widget _buildDialogTransitions(
     );
   } else if (type == TransitionType.scale) {
     return ScaleTransition(
-      scale: Tween(begin: 0.0, end: 1.0).animate(
-          CurvedAnimation(parent: animaton1, curve: Curves.fastOutSlowIn)),
+      scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: animaton1,
+        curve: Curves.fastOutSlowIn,
+      )),
       child: child,
     );
   } else if (type == TransitionType.rotation) {
@@ -92,8 +94,10 @@ Widget _buildDialogTransitions(
         curve: Curves.fastOutSlowIn,
       )),
       child: ScaleTransition(
-        scale: Tween(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(parent: animaton1, curve: Curves.fastOutSlowIn)),
+        scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+          parent: animaton1,
+          curve: Curves.fastOutSlowIn,
+        )),
         child: child,
       ),
     );
@@ -101,36 +105,51 @@ Widget _buildDialogTransitions(
     // 左右滑动动画效果
     return SlideTransition(
       position: Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0))
-          .animate(
-              CurvedAnimation(parent: animaton1, curve: Curves.fastOutSlowIn)),
+          .animate(CurvedAnimation(
+        parent: animaton1,
+        curve: Curves.fastOutSlowIn,
+      )),
       child: child,
     );
   } else if (type == TransitionType.inFromRight) {
     return SlideTransition(
       position: Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0))
-          .animate(
-              CurvedAnimation(parent: animaton1, curve: Curves.fastOutSlowIn)),
+          .animate(CurvedAnimation(
+        parent: animaton1,
+        curve: Curves.fastOutSlowIn,
+      )),
       child: child,
     );
   } else if (type == TransitionType.inFromTop) {
     return SlideTransition(
       position: Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-          .animate(
-              CurvedAnimation(parent: animaton1, curve: Curves.fastOutSlowIn)),
+          .animate(CurvedAnimation(
+        parent: animaton1,
+        curve: Curves.fastOutSlowIn,
+      )),
       child: child,
     );
   } else if (type == TransitionType.inFromBottom) {
     return SlideTransition(
-      position: Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-          .animate(
-              CurvedAnimation(parent: animaton1, curve: Curves.fastOutSlowIn)),
+      position: Tween<Offset>(
+        begin: Offset(0.0, 1.0),
+        end: Offset(0.0, 0.0),
+      ).animate(CurvedAnimation(
+        parent: animaton1,
+        curve: Curves.fastOutSlowIn,
+      )),
       child: child,
     );
   } else if (type == TransitionType.size) {
     return SizeTransition(
       child: child,
-      sizeFactor: Tween<double>(begin: 0.1, end: 1.0)
-          .animate(CurvedAnimation(parent: animaton1, curve: Curves.linear)),
+      sizeFactor: Tween<double>(
+        begin: 0.1,
+        end: 1.0,
+      ).animate(CurvedAnimation(
+        parent: animaton1,
+        curve: Curves.linear,
+      )),
     );
   } else {
     return child;

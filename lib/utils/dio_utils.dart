@@ -24,27 +24,15 @@ class DioUtils {
   static const int CONNECT_TIMEOUT = 10000;
   static const int RECEIVE_TIMEOUT = 30000;
 
-  /// http request methods
-  static const String GET = 'get';
-  static const String POST = 'post';
-  static const String PUT = 'put';
-  static const String PATCH = 'patch';
-  static const String DELETE = 'delete';
-
   /*
    * url 请求链接
    * params 请求参数
    * metthod 请求方式
-   * onSuccess 成功回调
-   * onError 失败回调
    */
   static Future request<T>(
     String url, {
-    context,
     params,
     method,
-    Function(T t) onSuccess,
-    Function(String error) onError,
   }) async {
     params = params ?? {};
     method = method ?? 'GET';
@@ -92,9 +80,7 @@ class DioUtils {
 
         result = json.decode(response.data); //对数据进行JSON转化
 
-        if (response.statusCode == 200) {
-          onSuccess(result);
-        } else {
+        if (response.statusCode != 200) {
           throw Exception('statusCode:${response.statusCode}');
         }
       } on DioError catch (e) {
@@ -107,8 +93,6 @@ class DioUtils {
           NetworkUtil.networkStatus = 'overtime';
           Utils.showText(text: '网络连接超时', align: Alignment(0, 0.8), radius: 20);
         }
-
-        onError(e.toString());
       }
       return result;
     }

@@ -7,6 +7,8 @@ class AppTheme {
   static const Color cursorColor = Color(0xFFF2F2F2); // 光标颜色
   static const Color selectionColor = Color(0XFF2196F3); // 文本选中颜色
   static const Color hintColor = Color(0xFF999999); // 提示文本或占位符文本的颜色
+  static const Color highlightColor = Color(0x40CCCCCC); // 水波纹点击颜色
+  static const Color splashColor = Color(0x40CCCCCC); // 水波纹松开颜色
 
   static const Color darkText = Color(0xFF253840);
   static const Color darkerText = Color(0xFF17262A);
@@ -23,6 +25,8 @@ class AppTheme {
       selectionColor: selectionColor.withOpacity(0.3),
     ),
     hintColor: hintColor,
+    highlightColor: highlightColor,
+    splashColor: splashColor,
   );
 
   static const String fontName = 'WorkSans';

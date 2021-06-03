@@ -97,7 +97,7 @@ class _MyState extends State<LaunchPage> {
       Get.off(
         () => new TabNavigator(),
         duration: Duration(milliseconds: 600),
-        transition: Transition.size,
+        transition: Transition.noTransition,
       );
     }
   }
